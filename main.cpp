@@ -1,21 +1,90 @@
 #include <iostream>
 #include "Pieza.h"
 #include <string>
+#include <stdlib.h>
 using namespace std;
 
 string**crearTablero();
 string**llenarMatriz(string**);
 void imp_tablero(string**);
 void eliminarTablero(string**);
+int mov_marine(int,int,int,int);
 
 int main(){
   string**temp=NULL;
   temp=crearTablero();
   temp=llenarMatriz(temp);
   imp_tablero(temp);
+
+  int turno=1;
+  bool seguir=true;
+  int codx1,cody1,codx2,cody2;
+
+  while(seguir){
+    if(turno==1){
+        cout<<"Ingrese coordenadas de la posicion para moverse"<<endl;
+        cout<<"Ingrese coordenada x"<<endl;
+        cin>>codx1;
+        cout<<"Ingrese coordenada y"<<endl;
+        cin>>cody1;
+        cout<<"Ingrese coordenadas de la posicion a moverse"<<endl;
+        cout<<"Ingrese coordenada x"<<endl;
+        cin>>codx2;
+        cout<<"Ingrese coordenada y"<<endl;
+        cin>>cody2;
+        while(codx1>7 || cody1>7 || codx2>7 || cody2>7 || mov_marine(codx1,cody1,codx2,cody2)){
+          cout<<"Coordenadas incorrectas"<<endl;
+          cout<<"Ingrese coordenadas de la posicion para moverse"<<endl;
+          cout<<"Ingrese coordenada x"<<endl;
+          cin>>codx1;
+          cout<<"Ingrese coordenada y"<<endl;
+          cin>>cody1;
+          cout<<"Ingrese coordenadas de la posicion a moverse"<<endl;
+          cout<<"Ingrese coordenada x"<<endl;
+          cin>>codx2;
+          cout<<"Ingrese coordenada y"<<endl;
+          cin>>cody2;
+        }
+        temp[codx2][cody2]=temp[codx1][cody1];
+        temp[codx1][cody1]="[ ]";
+        imp_tablero(temp);
+        turno=2;
+    }else if(turno==2){
+        cout<<"Ingrese coordenadas de la posicion para moverse"<<endl;
+        cout<<"Ingrese coordenada x"<<endl;
+        cin>>codx1;
+        cout<<"Ingrese coordenada y"<<endl;
+        cin>>cody1;
+        cout<<"Ingrese coordenadas de la posicion a moverse"<<endl;
+        cout<<"Ingrese coordenada x"<<endl;
+        cin>>codx2;
+        cout<<"Ingrese coordenada y"<<endl;
+        cin>>cody2;
+        while(codx1>7 || cody1>7 || codx2>7 || cody2>7 || mov_marine(codx1,cody1,codx2,cody2)){
+          cout<<"Coordenadas incorrectas"<<endl;
+          cout<<"Ingrese coordenadas de la posicion para moverse"<<endl;
+          cout<<"Ingrese coordenada x"<<endl;
+          cin>>codx1;
+          cout<<"Ingrese coordenada y"<<endl;
+          cin>>cody1;
+          cout<<"Ingrese coordenadas de la posicion a moverse"<<endl;
+          cout<<"Ingrese coordenada x"<<endl;
+          cin>>codx2;
+          cout<<"Ingrese coordenada y"<<endl;
+          cin>>cody2;
+      }
+        temp[codx2][cody2]=temp[codx1][cody1];
+        temp[codx1][cody1]="[ ]";
+        imp_tablero(temp);
+        turno=1;
+    }
+
+  }
+
+  //liberar memoria
   eliminarTablero(temp);
   return 0;
-}
+}//fin del main
 
 string**crearTablero(){
     string**tablero=new string*[8];
@@ -80,4 +149,14 @@ void eliminarTablero(string**tablero){
     delete [] tablero[i];
   }
   delete []tablero;
+}
+
+int mov_marine(int x1,int y1,int x2, int y2){
+    int absoluto1=abs(x1-x2);
+    int absoluto2=abs(y1-y2);
+    if(absoluto1==absoluto2){
+      return 1;
+    }else {
+      return 2;
+  }
 }
