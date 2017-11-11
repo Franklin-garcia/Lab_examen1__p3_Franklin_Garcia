@@ -9,6 +9,8 @@ string**llenarMatriz(string**);
 void imp_tablero(string**);
 void eliminarTablero(string**);
 int mov_marine(int,int,int,int);
+int gano_player1(string**);
+
 
 int main(){
   string**temp=NULL;
@@ -19,6 +21,9 @@ int main(){
   int turno=1;
   bool seguir=true;
   int codx1,cody1,codx2,cody2;
+
+  cout<<"Jugador 1-blancas +"<<endl;
+  cout<<"JUgador 2-Negras  0"<<endl;
 
   while(seguir){
     if(turno==1){
@@ -32,7 +37,7 @@ int main(){
         cin>>codx2;
         cout<<"Ingrese coordenada y"<<endl;
         cin>>cody2;
-        while(codx1>7 || cody1>7 || codx2>7 || cody2>7 || mov_marine(codx1,cody1,codx2,cody2)){
+        while(codx1>7 || cody1>7 || codx2>7 || cody2>7 || mov_marine(codx1,cody1,codx2,cody2)==2 || temp[codx1][cody1]=="[ ]" || temp[codx2][cody2]=="[+]" || temp[codx2][cody2]=="[0]"|| temp[codx1][cody1]=="[0]"){
           cout<<"Coordenadas incorrectas"<<endl;
           cout<<"Ingrese coordenadas de la posicion para moverse"<<endl;
           cout<<"Ingrese coordenada x"<<endl;
@@ -60,7 +65,7 @@ int main(){
         cin>>codx2;
         cout<<"Ingrese coordenada y"<<endl;
         cin>>cody2;
-        while(codx1>7 || cody1>7 || codx2>7 || cody2>7 || mov_marine(codx1,cody1,codx2,cody2)){
+        while(codx1>7 || cody1>7 || codx2>7 || cody2>7 || mov_marine(codx1,cody1,codx2,cody2)==2 || temp[codx1][cody1]=="[ ]" || temp[codx2][cody2]=="[+]" || temp[codx2][cody2]=="[0]"||temp[codx1][cody1]=="[+]"){
           cout<<"Coordenadas incorrectas"<<endl;
           cout<<"Ingrese coordenadas de la posicion para moverse"<<endl;
           cout<<"Ingrese coordenada x"<<endl;
@@ -159,4 +164,42 @@ int mov_marine(int x1,int y1,int x2, int y2){
     }else {
       return 2;
   }
+}
+
+
+int gano_player1(string **tablero){
+  int cont1=0;
+  for(int i=0;i<8;i++){
+    for(int j=0;j<8;j++){
+
+          if(tablero[i][j].compare("[0]")){
+                cont1++;
+          }
+    }
+  }
+  if(cont1>0){
+    return 1;//esta vivo
+  }else {
+    return 2;//murio
+  }
+
+}
+
+int gano_player2(string **tablero){
+  int cont1=0;
+  for(int i=0;i<8;i++){
+    for(int j=0;j<8;j++){
+
+          if(tablero[i][j].compare("[+]")){
+                cont1++;
+          }
+
+    }
+  }
+  if(cont1>0){
+    return 1;//esta vivo
+  }else {
+    return 2;//murio
+  }
+
 }
